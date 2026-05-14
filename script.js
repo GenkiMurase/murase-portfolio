@@ -48,3 +48,27 @@ if (matrix) {
   updateMatrix();
   setInterval(updateMatrix, 300);
 }
+
+const contactForm = document.querySelector("#contact-form");
+
+if (contactForm) {
+  contactForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(contactForm);
+    const name = (formData.get("name") || "").toString().trim();
+    const email = (formData.get("email") || "").toString().trim();
+    const subject = (formData.get("subject") || "").toString().trim();
+    const message = (formData.get("message") || "").toString().trim();
+
+    const body = [
+      `お名前: ${name}`,
+      `返信先: ${email}`,
+      "",
+      message,
+    ].join("\n");
+
+    const mailto = `mailto:genki17green@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailto;
+  });
+}
